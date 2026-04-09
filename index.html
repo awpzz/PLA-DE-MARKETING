@@ -3,551 +3,566 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TechHome Services – La tecnologia, a casa teva</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<title>TechHome Services — La tecnologia, a casa teva</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --blue-dark: #1B3A6B;
-    --blue-mid: #2A5BA8;
-    --blue-light: #3A6BC4;
-    --blue-accent: #4D9FFF;
-    --bg: #F4F7FC;
-    --white: #ffffff;
-    --grey: #5A6A80;
-    --grey-light: #E8EEF7;
-    --text: #1a2a3a;
-  }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0f1e;
+  --ink2:#0f1628;
+  --blue:#0a84ff;
+  --blue2:#0066cc;
+  --cyan:#00d4ff;
+  --glow:rgba(10,132,255,0.35);
+  --glass:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.08);
+  --text:#e8edf5;
+  --muted:#6b7a96;
+  --card:rgba(16,24,48,0.7);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:none;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* CUSTOM CURSOR */
+#cursor{
+  position:fixed;width:12px;height:12px;
+  background:var(--blue);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,background .25s;
+  mix-blend-mode:screen;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1.5px solid rgba(10,132,255,0.5);
+  border-radius:50%;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .3s,height .3s,opacity .3s;
+}
 
-  html { scroll-behavior: smooth; }
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5vw;
+  background:rgba(10,15,30,0.8);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:background .3s;
+}
+.nav-brand{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;
+  letter-spacing:-.3px;color:var(--text);text-decoration:none;
+}
+.nav-brand em{color:var(--blue);font-style:normal}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-size:.85rem;font-weight:400;color:var(--muted);
+  text-decoration:none;transition:color .2s;letter-spacing:.3px;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  background:var(--blue);color:#fff;
+  padding:.5rem 1.25rem;border-radius:980px;
+  font-size:.85rem;font-weight:500;text-decoration:none;
+  transition:all .25s;box-shadow:0 0 20px var(--glow);
+}
+.nav-cta:hover{background:var(--cyan);color:var(--ink);box-shadow:0 0 35px rgba(0,212,255,.5)}
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:80px 5vw 0;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%, rgba(10,132,255,.12) 0%, transparent 70%),
+             radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,212,255,.06) 0%, transparent 60%),
+             radial-gradient(ellipse 50% 50% at 80% 10%, rgba(0,102,204,.08) 0%, transparent 60%),
+             var(--ink);
+}
+.grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:drift 12s ease-in-out infinite}
+.orb1{width:500px;height:500px;background:rgba(10,132,255,.08);top:-100px;left:-100px;animation-delay:0s}
+.orb2{width:400px;height:400px;background:rgba(0,212,255,.06);bottom:-100px;right:-50px;animation-delay:-4s}
+.orb3{width:300px;height:300px;background:rgba(0,102,204,.09);top:50%;left:60%;animation-delay:-8s}
+@keyframes drift{0%,100%{transform:translate(0,0)}33%{transform:translate(30px,-30px)}66%{transform:translate(-20px,20px)}}
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(27,58,107,0.97);
-    backdrop-filter: blur(10px);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5vw;
-    height: 64px;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
-  }
-  .nav-logo {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800; font-size: 1.25rem;
-    color: var(--white); letter-spacing: -0.5px;
-  }
-  .nav-logo span { color: var(--blue-accent); }
-  nav ul { list-style: none; display: flex; gap: 2rem; }
-  nav ul a {
-    color: rgba(255,255,255,0.8); text-decoration: none;
-    font-size: 0.9rem; font-weight: 500; transition: color 0.2s;
-  }
-  nav ul a:hover { color: var(--blue-accent); }
-  .nav-cta {
-    background: var(--blue-accent); color: var(--white) !important;
-    padding: 0.45rem 1.1rem; border-radius: 6px; font-weight: 600 !important;
-  }
-  .nav-cta:hover { background: #3a8fe8 !important; color: var(--white) !important; }
+.circuit{position:absolute;inset:0;opacity:.15;pointer-events:none;overflow:hidden;}
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, #1a4a8a 100%);
-    display: flex; align-items: center;
-    position: relative; overflow: hidden;
-    padding: 80px 5vw 0;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(77,159,255,0.18) 0%, transparent 65%);
-  }
-  .hero-grid {
-    position: absolute; inset: 0; opacity: 0.04;
-    background-image: linear-gradient(var(--white) 1px, transparent 1px),
-                      linear-gradient(90deg, var(--white) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  .hero-content {
-    position: relative; z-index: 2;
-    max-width: 600px;
-    animation: fadeUp 0.8s ease both;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(77,159,255,0.2);
-    border: 1px solid rgba(77,159,255,0.4);
-    color: var(--blue-accent);
-    font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;
-    text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 20px;
-    margin-bottom: 1.5rem;
-  }
-  .hero h1 {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 3.8rem);
-    font-weight: 800; line-height: 1.1;
-    color: var(--white); margin-bottom: 1.25rem;
-    letter-spacing: -1px;
-  }
-  .hero h1 span { color: var(--blue-accent); }
-  .hero p {
-    font-size: 1.1rem; color: rgba(255,255,255,0.75);
-    line-height: 1.7; margin-bottom: 2.5rem; max-width: 480px;
-  }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--blue-accent); color: var(--white);
-    padding: 0.85rem 2rem; border-radius: 8px;
-    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem;
-    text-decoration: none; transition: all 0.25s;
-    box-shadow: 0 4px 20px rgba(77,159,255,0.4);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(77,159,255,0.5); }
-  .btn-secondary {
-    background: transparent; color: var(--white);
-    padding: 0.85rem 2rem; border-radius: 8px;
-    font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem;
-    text-decoration: none; border: 2px solid rgba(255,255,255,0.3);
-    transition: all 0.25s;
-  }
-  .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(10,132,255,.1);border:1px solid rgba(10,132,255,.25);
+  color:var(--blue);font-size:.78rem;font-weight:500;letter-spacing:1.5px;
+  text-transform:uppercase;padding:.4rem 1rem;border-radius:980px;
+  margin-bottom:2rem;position:relative;z-index:2;
+  animation:fadeUp .8s ease both;
+}
+.dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:blink 1.5s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
-  .hero-img {
-    position: absolute; right: 5vw; bottom: 0;
-    width: clamp(280px, 40vw, 480px);
-    opacity: 0.15;
-    animation: fadeUp 1s ease 0.3s both;
-  }
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3rem,7vw,6.5rem);
+  font-weight:800;line-height:1.0;
+  letter-spacing:-3px;
+  position:relative;z-index:2;
+  animation:fadeUp .9s ease .1s both;
+}
+.hero h1 .line1{
+  display:block;
+  background:linear-gradient(135deg,#ffffff 0%,#c8d8f0 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero h1 .line2{
+  display:block;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  max-width:520px;margin:2rem auto 0;
+  font-size:1.1rem;font-weight:300;color:var(--muted);line-height:1.75;
+  position:relative;z-index:2;
+  animation:fadeUp .9s ease .25s both;
+}
+.hero-actions{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  margin-top:2.5rem;position:relative;z-index:2;
+  animation:fadeUp .9s ease .4s both;
+}
+.btn-glow{
+  background:var(--blue);color:#fff;
+  padding:.85rem 2.25rem;border-radius:980px;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;
+  text-decoration:none;transition:all .3s;
+  box-shadow:0 0 30px var(--glow),inset 0 1px 0 rgba(255,255,255,.2);
+  position:relative;overflow:hidden;
+}
+.btn-glow::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15) 0%,transparent 60%);
+  pointer-events:none;
+}
+.btn-glow:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 0 50px rgba(10,132,255,.6),0 20px 40px rgba(0,0,0,.3)}
+.btn-outline{
+  background:transparent;color:var(--text);
+  padding:.85rem 2.25rem;border-radius:980px;
+  font-family:'Syne',sans-serif;font-weight:600;font-size:.95rem;
+  text-decoration:none;transition:all .3s;
+  border:1.5px solid var(--border);
+  backdrop-filter:blur(10px);
+}
+.btn-outline:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05);transform:translateY(-2px)}
 
-  .hero-stats {
-    position: absolute; bottom: 2.5rem; left: 5vw; right: 5vw;
-    display: flex; gap: 3rem; z-index: 2;
-    animation: fadeUp 0.8s ease 0.5s both;
-  }
-  .stat { color: var(--white); }
-  .stat-num {
-    font-family: 'Outfit', sans-serif;
-    font-size: 2rem; font-weight: 800; color: var(--blue-accent);
-    line-height: 1;
-  }
-  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem; }
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--muted);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;
+  animation:fadeUp .9s ease .8s both;z-index:2;
+}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--blue),transparent);animation:scrollDrop 1.8s ease infinite}
+@keyframes scrollDrop{0%{transform:scaleY(0) translateY(-100%);opacity:0}50%{opacity:1}100%{transform:scaleY(1) translateY(0);opacity:0}}
 
-  /* SERVICES */
-  .services {
-    padding: 6rem 5vw;
-    background: var(--white);
-  }
-  .section-header { text-align: center; margin-bottom: 3.5rem; }
-  .section-tag {
-    display: inline-block;
-    color: var(--blue-mid); font-size: 0.8rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.75rem;
-  }
-  .section-header h2 {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    font-weight: 800; color: var(--blue-dark);
-    letter-spacing: -0.5px;
-  }
-  .section-header p {
-    color: var(--grey); margin-top: 0.75rem; font-size: 1rem; max-width: 500px; margin-inline: auto;
-  }
+/* MARQUEE */
+.marquee-wrap{
+  background:rgba(10,132,255,.06);
+  border-top:1px solid rgba(10,132,255,.15);
+  border-bottom:1px solid rgba(10,132,255,.15);
+  padding:.7rem 0;overflow:hidden;
+}
+.marquee-track{
+  display:flex;gap:3rem;white-space:nowrap;
+  animation:marquee 20s linear infinite;
+}
+.marquee-track span{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue);opacity:.7}
+.marquee-track span.sep{color:var(--muted);opacity:.3}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
-  }
-  .service-card {
-    background: var(--bg);
-    border: 1px solid var(--grey-light);
-    border-radius: 14px; padding: 2rem;
-    transition: all 0.3s;
-    position: relative; overflow: hidden;
-  }
-  .service-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--blue-mid), var(--blue-accent));
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.3s;
-  }
-  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(27,58,107,0.12); border-color: transparent; }
-  .service-card:hover::before { transform: scaleX(1); }
-  .service-icon {
-    width: 50px; height: 50px;
-    background: linear-gradient(135deg, var(--blue-mid), var(--blue-accent));
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem; margin-bottom: 1.25rem;
-    box-shadow: 0 4px 15px rgba(42,91,168,0.3);
-  }
-  .service-card h3 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.1rem; font-weight: 700;
-    color: var(--blue-dark); margin-bottom: 0.5rem;
-  }
-  .service-card p { font-size: 0.9rem; color: var(--grey); line-height: 1.6; }
-  .service-price {
-    margin-top: 1rem; padding-top: 1rem;
-    border-top: 1px solid var(--grey-light);
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700; color: var(--blue-mid); font-size: 1rem;
-  }
+/* SECTIONS */
+section{padding:7rem 5vw}
+.s-tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:1rem}
+.s-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-1.5px;line-height:1.1}
+.s-title em{font-style:normal;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.s-sub{color:var(--muted);font-size:1rem;line-height:1.75;max-width:480px;margin-top:.75rem}
 
-  /* HOW IT WORKS */
-  .how {
-    padding: 6rem 5vw;
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
-    position: relative; overflow: hidden;
-  }
-  .how::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 30% 50%, rgba(77,159,255,0.15) 0%, transparent 60%);
-  }
-  .how .section-header h2 { color: var(--white); }
-  .how .section-tag { color: var(--blue-accent); }
-  .how .section-header p { color: rgba(255,255,255,0.65); }
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem; max-width: 900px; margin: 0 auto;
-    position: relative; z-index: 2;
-  }
-  .step { text-align: center; }
-  .step-num {
-    width: 56px; height: 56px;
-    background: rgba(77,159,255,0.2);
-    border: 2px solid var(--blue-accent);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1rem;
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.4rem; font-weight: 800; color: var(--blue-accent);
-  }
-  .step h3 {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700; font-size: 1rem; color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-  .step p { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+/* SERVICES */
+.services-section{background:var(--ink2)}
+.services-inner{max-width:1200px;margin:0 auto}
+.services-head{margin-bottom:4rem}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5px;background:var(--border);
+  border:1px solid var(--border);border-radius:20px;overflow:hidden;
+}
+.svc{
+  background:var(--card);padding:2.5rem 2rem;
+  position:relative;overflow:hidden;transition:background .3s;
+  backdrop-filter:blur(10px);
+}
+.svc::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:150px;height:150px;
+  background:radial-gradient(circle,rgba(10,132,255,.12),transparent 70%);
+  transition:opacity .3s;
+}
+.svc:hover{background:rgba(10,132,255,.08)}
+.svc-num{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;color:var(--blue);letter-spacing:2px;margin-bottom:1.5rem;opacity:.6}
+.svc-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(10,132,255,.2),rgba(0,212,255,.1));
+  border:1px solid rgba(10,132,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1.25rem;
+  transition:transform .3s,box-shadow .3s;
+}
+.svc:hover .svc-icon{transform:scale(1.1);box-shadow:0 0 20px var(--glow)}
+.svc h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.5rem;color:var(--text)}
+.svc p{font-size:.88rem;color:var(--muted);line-height:1.65}
+.svc-price{margin-top:1.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:var(--blue);display:flex;align-items:center;gap:.4rem}
+.svc-price::before{content:'';display:block;width:20px;height:1.5px;background:var(--blue)}
 
-  /* PRICING */
-  .pricing {
-    padding: 6rem 5vw;
-    background: var(--bg);
-  }
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem; max-width: 1000px; margin: 0 auto;
-  }
-  .price-card {
-    background: var(--white);
-    border: 1px solid var(--grey-light);
-    border-radius: 14px; padding: 1.75rem;
-    transition: all 0.3s; text-align: center;
-  }
-  .price-card.featured {
-    background: linear-gradient(135deg, var(--blue-mid), var(--blue-dark));
-    border-color: transparent;
-    transform: scale(1.04);
-    box-shadow: 0 12px 40px rgba(27,58,107,0.25);
-  }
-  .price-card:hover:not(.featured) { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(27,58,107,0.1); }
-  .price-card h3 {
-    font-family: 'Outfit', sans-serif; font-weight: 700;
-    font-size: 1rem; color: var(--blue-dark); margin-bottom: 0.75rem;
-    text-transform: uppercase; letter-spacing: 1px;
-  }
-  .price-card.featured h3 { color: rgba(255,255,255,0.8); }
-  .price-amount {
-    font-family: 'Outfit', sans-serif;
-    font-size: 2.4rem; font-weight: 800; color: var(--blue-dark);
-    line-height: 1;
-  }
-  .price-card.featured .price-amount { color: var(--white); }
-  .price-unit { font-size: 0.8rem; color: var(--grey); margin-top: 0.25rem; }
-  .price-card.featured .price-unit { color: rgba(255,255,255,0.6); }
-  .price-desc { font-size: 0.9rem; color: var(--grey); margin-top: 0.75rem; line-height: 1.5; }
-  .price-card.featured .price-desc { color: rgba(255,255,255,0.75); }
+/* BENTO */
+.bento-section{background:var(--ink)}
+.bento-grid{
+  max-width:1200px;margin:3rem auto 0;
+  display:grid;grid-template-columns:repeat(12,1fr);gap:16px;
+}
+.bento-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:2.5rem;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(10px);
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+}
+.bento-card:hover{transform:translateY(-4px);border-color:rgba(10,132,255,.3);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 40px rgba(10,132,255,.08)}
+.b1{grid-column:span 7}
+.b2{grid-column:span 5}
+.b3{grid-column:span 4}
+.b4{grid-column:span 4}
+.b5{grid-column:span 4}
+.bento-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;margin-bottom:.75rem;letter-spacing:-.3px}
+.bento-card p{font-size:.9rem;color:var(--muted);line-height:1.7}
+.bento-big-num{font-family:'Syne',sans-serif;font-weight:800;font-size:4.5rem;line-height:1;letter-spacing:-4px;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem}
+.bento-tag{display:inline-block;background:rgba(10,132,255,.15);border:1px solid rgba(10,132,255,.25);color:var(--blue);font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:.3rem .75rem;border-radius:980px;margin-bottom:1.25rem}
+.bento-card::after{content:'';position:absolute;bottom:-80px;right:-80px;width:200px;height:200px;background:radial-gradient(circle,rgba(10,132,255,.08),transparent 70%);pointer-events:none}
+.bento-map{margin-top:1.5rem;height:80px;background:repeating-linear-gradient(0deg,transparent,transparent 19px,rgba(10,132,255,.08) 19px,rgba(10,132,255,.08) 20px),repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(10,132,255,.08) 19px,rgba(10,132,255,.08) 20px);border-radius:10px;position:relative;overflow:hidden}
+.bento-map::after{content:'📍';position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:1.5rem;filter:drop-shadow(0 0 10px var(--blue))}
+.speed-bars{display:flex;flex-direction:column;gap:.5rem;margin-top:1.5rem}
+.speed-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.05);overflow:hidden}
+.speed-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));animation:fillBar 1.5s ease forwards}
+@keyframes fillBar{from{width:0}to{width:var(--w)}}
+.rsc-pct{font-family:'Syne',sans-serif;font-weight:800;font-size:3.5rem;line-height:1;letter-spacing:-3px;background:linear-gradient(135deg,#00d4ff,#0a84ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-  /* CONTACT */
-  .contact {
-    padding: 6rem 5vw;
-    background: var(--white);
-  }
-  .contact-wrap {
-    max-width: 700px; margin: 0 auto; text-align: center;
-  }
-  .contact-methods {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.25rem; margin-top: 3rem;
-  }
-  .contact-card {
-    background: var(--bg);
-    border: 1px solid var(--grey-light);
-    border-radius: 12px; padding: 1.5rem;
-    text-decoration: none; transition: all 0.3s;
-  }
-  .contact-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(27,58,107,0.1); border-color: var(--blue-accent); }
-  .contact-card-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
-  .contact-card h4 {
-    font-family: 'Outfit', sans-serif; font-weight: 700;
-    font-size: 0.9rem; color: var(--blue-dark); margin-bottom: 0.25rem;
-  }
-  .contact-card p { font-size: 0.85rem; color: var(--grey); }
+/* HOW IT WORKS */
+.how-section{background:linear-gradient(180deg,var(--ink2) 0%,var(--ink) 100%)}
+.how-inner{max-width:1100px;margin:0 auto}
+.how-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;margin-top:4rem;
+  background:var(--border);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+}
+.step-card{background:var(--card);padding:2.5rem 1.75rem;position:relative;transition:background .3s;backdrop-filter:blur(10px)}
+.step-card:hover{background:rgba(10,132,255,.06)}
+.step-n{font-family:'Syne',sans-serif;font-weight:800;font-size:3.5rem;line-height:1;letter-spacing:-3px;background:linear-gradient(135deg,rgba(10,132,255,.25),rgba(0,212,255,.15));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.5rem}
+.step-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.5rem}
+.step-card p{font-size:.88rem;color:var(--muted);line-height:1.65}
 
-  /* FOOTER */
-  footer {
-    background: var(--blue-dark);
-    padding: 2rem 5vw;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1rem;
-  }
-  .footer-logo {
-    font-family: 'Outfit', sans-serif; font-weight: 800;
-    font-size: 1.1rem; color: var(--white);
-  }
-  .footer-logo span { color: var(--blue-accent); }
-  footer p { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+/* PRICING */
+.pricing-section{background:var(--ink2)}
+.pricing-inner{max-width:1100px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:4rem}
+.p-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.25rem 1.75rem;transition:all .3s;position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+.p-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.p-card.featured{background:linear-gradient(145deg,rgba(10,132,255,.2),rgba(0,212,255,.08));border-color:rgba(10,132,255,.4);box-shadow:0 0 40px rgba(10,132,255,.15),inset 0 1px 0 rgba(255,255,255,.08)}
+.p-card.featured:hover{box-shadow:0 30px 60px rgba(0,0,0,.4),0 0 60px rgba(10,132,255,.2)}
+.featured-badge{display:inline-block;background:var(--blue);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.25rem .75rem;border-radius:980px;margin-bottom:1.25rem}
+.p-name{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem}
+.p-price{font-family:'Syne',sans-serif;font-weight:800;font-size:3rem;letter-spacing:-2px;line-height:1;color:var(--text)}
+.p-price span{font-size:1rem;font-weight:400;color:var(--muted);letter-spacing:0}
+.p-desc{font-size:.88rem;color:var(--muted);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border)}
+.p-card::after{content:'';position:absolute;bottom:-60px;right:-60px;width:150px;height:150px;background:radial-gradient(circle,rgba(10,132,255,.06),transparent 70%)}
+.promo-note{text-align:center;margin-top:2rem;font-size:.85rem;color:var(--muted)}
+.promo-note strong{color:var(--blue)}
 
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .reveal {
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+/* CONTACT */
+.contact-section{background:var(--ink);position:relative;overflow:hidden}
+.contact-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(10,132,255,.05),transparent 60%);pointer-events:none}
+.contact-inner{max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:3.5rem}
+.c-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2rem;text-decoration:none;transition:all .3s;display:flex;flex-direction:column;align-items:flex-start;backdrop-filter:blur(10px)}
+.c-card:hover{transform:translateY(-4px);border-color:rgba(10,132,255,.35);box-shadow:0 20px 50px rgba(0,0,0,.3),0 0 30px rgba(10,132,255,.08)}
+.c-icon{width:48px;height:48px;border-radius:14px;background:rgba(10,132,255,.12);border:1px solid rgba(10,132,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem;transition:transform .3s}
+.c-card:hover .c-icon{transform:scale(1.1)}
+.c-label{font-size:.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:.3rem}
+.c-val{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text)}
+.c-sub{font-size:.82rem;color:var(--muted);margin-top:.2rem}
+.contact-cta-wrap{margin-top:3.5rem;display:flex;gap:1rem;justify-content:center}
 
-  @media (max-width: 640px) {
-    nav ul { display: none; }
-    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
-    .price-card.featured { transform: none; }
-  }
+/* FOOTER */
+footer{background:rgba(5,8,18,.8);border-top:1px solid var(--border);padding:3rem 5vw;display:grid;grid-template-columns:1fr auto;align-items:center;gap:2rem}
+.footer-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text);margin-bottom:.3rem}
+.footer-brand em{color:var(--blue);font-style:normal}
+footer p{font-size:.8rem;color:var(--muted)}
+.footer-right{text-align:right}
+
+/* GLOW LINE */
+.glow-line{width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(10,132,255,.4) 30%,rgba(0,212,255,.6) 50%,rgba(10,132,255,.4) 70%,transparent 100%)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+@media(max-width:900px){
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .bento-grid{grid-template-columns:1fr 1fr}
+  .b1,.b2,.b3,.b4,.b5{grid-column:span 1}
+  .b1{grid-column:span 2}
+  .how-steps{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media(max-width:600px){
+  .services-grid,.how-steps,.pricing-grid{grid-template-columns:1fr}
+  .bento-grid{grid-template-columns:1fr}
+  .b1{grid-column:span 1}
+  .contact-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr;text-align:center}
+  .footer-right{text-align:center}
+}
 </style>
 </head>
 <body>
 
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
 <nav>
-  <div class="nav-logo">Tech<span>Home</span> Services</div>
-  <ul>
+  <a class="nav-brand" href="#">Tech<em>Home</em> Services</a>
+  <ul class="nav-links">
     <li><a href="#serveis">Serveis</a></li>
     <li><a href="#com-funciona">Com funciona</a></li>
     <li><a href="#preus">Preus</a></li>
-    <li><a href="#contacte" class="nav-cta">Contacta'ns</a></li>
+    <li><a href="#contacte">Contacte</a></li>
   </ul>
+  <a href="#contacte" class="nav-cta">Sol·licita visita →</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Servei tècnic a domicili · Barcelona</div>
-    <h1>La tecnologia,<br><span>a casa teva.</span></h1>
-    <p>Reparació i manteniment d'ordinadors al teu domicili. Ràpid, proper i de confiança. Sense desplaçaments, sense esperes.</p>
-    <div class="hero-btns">
-      <a href="#contacte" class="btn-primary">Sol·licita visita</a>
-      <a href="#serveis" class="btn-secondary">Veure serveis</a>
-    </div>
+  <div class="hero-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <svg class="circuit" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#0a84ff" stroke-width="1" fill="none">
+      <path d="M0 200 L200 200 L200 150 L400 150"/>
+      <circle cx="200" cy="200" r="4" fill="#0a84ff" opacity=".5"/>
+      <circle cx="400" cy="150" r="3" fill="#0a84ff" opacity=".3"/>
+      <path d="M1440 300 L1200 300 L1200 350 L950 350 L950 300"/>
+      <circle cx="1200" cy="300" r="4" fill="#0a84ff" opacity=".5"/>
+      <path d="M100 600 L100 500 L300 500 L300 550 L500 550"/>
+      <circle cx="100" cy="600" r="3" fill="#00d4ff" opacity=".4"/>
+      <circle cx="300" cy="500" r="4" fill="#0a84ff" opacity=".3"/>
+      <path d="M1300 700 L1300 600 L1100 600 L1100 550"/>
+      <circle cx="1300" cy="700" r="3" fill="#00d4ff" opacity=".3"/>
+      <path d="M600 0 L600 100 L650 100 L650 200"/>
+      <circle cx="650" cy="200" r="4" fill="#0a84ff" opacity=".4"/>
+      <path d="M900 800 L900 650 L850 650 L850 600 L750 600"/>
+      <circle cx="750" cy="600" r="3" fill="#00d4ff" opacity=".35"/>
+    </g>
+  </svg>
+  <div class="hero-eyebrow"><div class="dot"></div>Servei tècnic certificat · Barcelona</div>
+  <h1>
+    <span class="line1">La tecnologia</span>
+    <span class="line2">a casa teva.</span>
+  </h1>
+  <p class="hero-sub">Reparació i manteniment d'ordinadors al teu domicili. Sense cues. Sense desplaçaments. Amb garantia total.</p>
+  <div class="hero-actions">
+    <a href="#contacte" class="btn-glow">Sol·licita visita →</a>
+    <a href="#serveis" class="btn-outline">Veure serveis</a>
   </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">24h</div>
-      <div class="stat-label">Resposta garantida</div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Diagnòstic</span><span class="sep">—</span><span>Reparació de maquinari</span><span class="sep">—</span><span>Eliminació de virus</span><span class="sep">—</span><span>Xarxes Wi-Fi</span><span class="sep">—</span><span>Còpies de seguretat</span><span class="sep">—</span><span>Suport remot</span><span class="sep">—</span><span>Manteniment periòdic</span><span class="sep">—</span><span>Instal·lació programari</span><span class="sep">—</span>
+    <span>Diagnòstic</span><span class="sep">—</span><span>Reparació de maquinari</span><span class="sep">—</span><span>Eliminació de virus</span><span class="sep">—</span><span>Xarxes Wi-Fi</span><span class="sep">—</span><span>Còpies de seguretat</span><span class="sep">—</span><span>Suport remot</span><span class="sep">—</span><span>Manteniment periòdic</span><span class="sep">—</span><span>Instal·lació programari</span><span class="sep">—</span>
+  </div>
+</div>
+<div class="glow-line"></div>
+
+<section class="services-section" id="serveis">
+  <div class="services-inner">
+    <div class="services-head reveal">
+      <div class="s-tag">El que fem</div>
+      <h2 class="s-title">Serveis <em>professionals</em></h2>
+      <p class="s-sub">Solucions tècniques d'alt nivell per a tots els dispositius, al teu domicili o de forma remota.</p>
     </div>
-    <div class="stat">
-      <div class="stat-num">30%</div>
-      <div class="stat-label">Descompte social</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">BCN</div>
-      <div class="stat-label">i rodalies</div>
+    <div class="services-grid">
+      <div class="svc reveal"><div class="svc-num">01</div><div class="svc-icon">🔧</div><h3>Diagnòstic i reparació</h3><p>Detectem i solucionem problemes de maquinari i programari al moment, sense que hagis de moure l'equip.</p><div class="svc-price">Des de 40€</div></div>
+      <div class="svc reveal reveal-delay-1"><div class="svc-num">02</div><div class="svc-icon">🛡️</div><h3>Eliminació de virus</h3><p>Neteja completa de malware, ransomware i programes maliciosos. L'equip tornarà a funcionar com el primer dia.</p><div class="svc-price">Des de 40€</div></div>
+      <div class="svc reveal reveal-delay-2"><div class="svc-num">03</div><div class="svc-icon">📶</div><h3>Xarxes i Wi-Fi</h3><p>Configuració de routers, repetidors i xarxes domèstiques. Solució de problemes de connexió i velocitat.</p><div class="svc-price">Des de 35€</div></div>
+      <div class="svc reveal"><div class="svc-num">04</div><div class="svc-icon">💾</div><h3>Còpies de seguretat</h3><p>Protegim les teves dades amb backups locals xifrats o sincronització segura al núvol.</p><div class="svc-price">Des de 30€</div></div>
+      <div class="svc reveal reveal-delay-1"><div class="svc-num">05</div><div class="svc-icon">⚙️</div><h3>Instal·lació de programari</h3><p>Configurem el teu equip des de zero: sistema operatiu, suite ofimàtica, drivers i actualitzacions.</p><div class="svc-price">Des de 35€</div></div>
+      <div class="svc reveal reveal-delay-2"><div class="svc-num">06</div><div class="svc-icon">🖥️</div><h3>Suport remot</h3><p>Assistència tècnica en temps real per connexió remota segura. Sense desplaçaments, sense esperes.</p><div class="svc-price">25€/hora</div></div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="services" id="serveis">
-  <div class="section-header reveal">
-    <div class="section-tag">El que fem</div>
-    <h2>Serveis professionals</h2>
-    <p>Solucions tècniques adaptades a les teves necessitats, al teu domicili.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-icon">🔧</div>
-      <h3>Diagnòstic i reparació</h3>
-      <p>Detectem i solucionem qualsevol problema de maquinari o programari al moment.</p>
-      <div class="service-price">Des de 40€</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">🦠</div>
-      <h3>Eliminació de virus</h3>
-      <p>Neteja completa de malware, spyware i programes no desitjats. El teu equip tornarà a volar.</p>
-      <div class="service-price">Des de 40€</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">📶</div>
-      <h3>Xarxes i Wi-Fi</h3>
-      <p>Configuració de routers, xarxes domèstiques i solució de problemes de connexió.</p>
-      <div class="service-price">Des de 40€</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">💾</div>
-      <h3>Còpies de seguretat</h3>
-      <p>Protegim les teves dades amb backups locals o al núvol xifrats i segurs.</p>
-      <div class="service-price">Des de 30€</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">🖥️</div>
-      <h3>Instal·lació de programari</h3>
-      <p>Configurem el teu ordinador des de zero: sistema operatiu, programes i actualitzacions.</p>
-      <div class="service-price">Des de 35€</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">📡</div>
-      <h3>Suport remot</h3>
-      <p>Resolem problemes sense moure'ns de casa, via connexió remota segura.</p>
-      <div class="service-price">25€/hora</div>
+<div class="glow-line"></div>
+
+<section class="bento-section">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="reveal"><div class="s-tag">Per què nosaltres</div><h2 class="s-title">Dissenyat per a <em>tu</em></h2></div>
+    <div class="bento-grid">
+      <div class="bento-card b1 reveal">
+        <div class="bento-tag">Resposta ràpida</div>
+        <div class="bento-big-num">24h</div>
+        <h3>Visita garantida en 24 hores</h3>
+        <p>Entenem que quan el teu ordinador falla, cada hora compta. Garantim resposta i cita en menys de 24 hores laborables a tota Barcelona i rodalies.</p>
+        <div class="speed-bars">
+          <div style="font-size:.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:.5rem">Temps de resposta típic</div>
+          <div class="speed-bar"><div class="speed-bar-fill" style="--w:90%"></div></div>
+          <div class="speed-bar"><div class="speed-bar-fill" style="--w:75%;animation-delay:.2s"></div></div>
+          <div class="speed-bar"><div class="speed-bar-fill" style="--w:95%;animation-delay:.4s"></div></div>
+        </div>
+      </div>
+      <div class="bento-card b2 reveal reveal-delay-1">
+        <div class="bento-tag">Cobertura</div>
+        <h3>Barcelona i rodalies</h3>
+        <p>Cobrim tota la ciutat i els seus municipis propers. El desplaçament sempre inclòs al preu.</p>
+        <div class="bento-map"></div>
+      </div>
+      <div class="bento-card b3 reveal">
+        <div class="rsc-pct">30%</div>
+        <h3>Descompte social</h3>
+        <p>Per a jubilats i persones en situació de vulnerabilitat econòmica. Tecnologia accessible per a tothom.</p>
+      </div>
+      <div class="bento-card b4 reveal reveal-delay-1">
+        <div class="bento-tag">Transparència</div>
+        <h3>Pressupost primer</h3>
+        <p>Mai actuem sense el teu vistiplau. Pressupost clar i detallat abans de qualsevol intervenció.</p>
+      </div>
+      <div class="bento-card b5 reveal reveal-delay-2">
+        <div class="bento-tag">Privacitat</div>
+        <h3>Compliment RGPD</h3>
+        <p>Signatura de confidencialitat amb cada client. Les teves dades, protegides en tot moment.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="how" id="com-funciona">
-  <div class="section-header reveal">
-    <div class="section-tag">El procés</div>
-    <h2>Com funciona?</h2>
-    <p>Quatre passos senzills per tenir el teu equip en perfecte estat.</p>
-  </div>
-  <div class="steps">
-    <div class="step reveal">
-      <div class="step-num">1</div>
-      <h3>Contacta'ns</h3>
-      <p>Explica'ns el problema per telèfon, WhatsApp o formulari.</p>
-    </div>
-    <div class="step reveal">
-      <div class="step-num">2</div>
-      <h3>Acordem cita</h3>
-      <p>Et proposem un horari a conveniència teva, sense esperes.</p>
-    </div>
-    <div class="step reveal">
-      <div class="step-num">3</div>
-      <h3>Diagnòstic</h3>
-      <p>El tècnic va al teu domicili i avalua el problema en directe.</p>
-    </div>
-    <div class="step reveal">
-      <div class="step-num">4</div>
-      <h3>Solució</h3>
-      <p>Resolem al moment o t'informem del cost exacte abans d'actuar.</p>
+<div class="glow-line"></div>
+
+<section class="how-section" id="com-funciona">
+  <div class="how-inner">
+    <div class="reveal"><div class="s-tag">El procés</div><h2 class="s-title">Quatre passos,<br><em>problema resolt.</em></h2></div>
+    <div class="how-steps">
+      <div class="step-card reveal"><div class="step-n">01</div><h3>Contacta'ns</h3><p>Explica'ns el problema per telèfon, WhatsApp o correu. Et respondrem de seguida.</p></div>
+      <div class="step-card reveal reveal-delay-1"><div class="step-n">02</div><h3>Acordem cita</h3><p>Et proposem un horari a conveniència teva, sense esperes ni desplaçaments.</p></div>
+      <div class="step-card reveal reveal-delay-2"><div class="step-n">03</div><h3>Diagnòstic</h3><p>El tècnic va al teu domicili, avalua el problema i t'explica la solució en termes senzills.</p></div>
+      <div class="step-card reveal reveal-delay-3"><div class="step-n">04</div><h3>Solució</h3><p>Resolem al moment sempre que sigui possible. Si calen peces, t'informem del cost exacte.</p></div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="pricing" id="preus">
-  <div class="section-header reveal">
-    <div class="section-tag">Tarifes</div>
-    <h2>Preus clars i justos</h2>
-    <p>Sense sorpreses. Pressupost sempre abans de qualsevol intervenció.</p>
+<div class="glow-line"></div>
+
+<section class="pricing-section" id="preus">
+  <div class="pricing-inner">
+    <div class="reveal"><div class="s-tag">Tarifes</div><h2 class="s-title">Preus <em>clars i justos</em></h2><p class="s-sub">Sense lletra petita. El preu és el que veus, inclòs el desplaçament a Barcelona.</p></div>
+    <div class="pricing-grid">
+      <div class="p-card reveal"><div class="p-name">Diagnòstic</div><div class="p-price">20€</div><div class="p-desc">Visita a domicili i avaluació completa de l'equip amb informe del problema.</div></div>
+      <div class="p-card featured reveal reveal-delay-1"><div class="featured-badge">Més popular</div><div class="p-name">Reparació</div><div class="p-price">40–80€</div><div class="p-desc">Solució completa: virus, maquinari, configuració i programari. Tot inclòs.</div></div>
+      <div class="p-card reveal reveal-delay-2"><div class="p-name">Suport remot</div><div class="p-price">25€<span>/h</span></div><div class="p-desc">Assistència per connexió remota segura sense necessitat de desplaçament.</div></div>
+      <div class="p-card reveal reveal-delay-3"><div class="p-name">Manteniment</div><div class="p-price">80€<span>/mes</span></div><div class="p-desc">Pla mensual per a empreses i autònoms. Revisions periòdiques i suport prioritari.</div></div>
+    </div>
+    <p class="promo-note reveal">★ <strong>Descompte del 30%</strong> per a jubilats i persones en situació de vulnerabilitat econòmica</p>
   </div>
-  <div class="pricing-grid">
-    <div class="price-card reveal">
-      <h3>Diagnòstic</h3>
-      <div class="price-amount">20€</div>
-      <div class="price-unit">visita a domicili</div>
-      <p class="price-desc">Avaluació completa de l'equip i informe del problema.</p>
-    </div>
-    <div class="price-card featured reveal">
-      <h3>Reparació</h3>
-      <div class="price-amount">40–80€</div>
-      <div class="price-unit">per servei</div>
-      <p class="price-desc">Solució completa de virus, maquinari, configuració i més.</p>
-    </div>
-    <div class="price-card reveal">
-      <h3>Suport remot</h3>
-      <div class="price-amount">25€</div>
-      <div class="price-unit">per hora</div>
-      <p class="price-desc">Assistència sense desplaçament per incidències ràpides.</p>
-    </div>
-    <div class="price-card reveal">
-      <h3>Manteniment</h3>
-      <div class="price-amount">80€</div>
-      <div class="price-unit">mensual</div>
-      <p class="price-desc">Pla de manteniment periòdic per a empreses i autònoms.</p>
-    </div>
-  </div>
-  <p style="text-align:center; margin-top:2rem; color:var(--grey); font-size:0.88rem;">
-    ★ Descompte del 30% per a jubilats i persones en situació de vulnerabilitat econòmica
-  </p>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contacte">
-  <div class="contact-wrap">
-    <div class="section-header reveal">
-      <div class="section-tag">Contacte</div>
-      <h2>Parla amb nosaltres</h2>
-      <p>Estem disponibles de dilluns a divendres. Et responem en menys de 24 hores.</p>
+<div class="glow-line"></div>
+
+<section class="contact-section" id="contacte">
+  <div class="contact-inner">
+    <div class="reveal"><div class="s-tag">Contacte</div><h2 class="s-title">Parla amb<br><em>nosaltres</em></h2><p class="s-sub" style="margin-inline:auto;text-align:center">Disponibles de dilluns a divendres. Et responem en menys de 24 hores.</p></div>
+    <div class="contact-grid">
+      <a href="tel:+34600000000" class="c-card reveal"><div class="c-icon">📞</div><div class="c-label">Telèfon</div><div class="c-val">+34 600 000 000</div><div class="c-sub">Dilluns a divendres, 9h–19h</div></a>
+      <a href="https://wa.me/34600000000" class="c-card reveal reveal-delay-1"><div class="c-icon">💬</div><div class="c-label">WhatsApp</div><div class="c-val">Escriu-nos ara</div><div class="c-sub">Resposta ràpida garantida</div></a>
+      <a href="mailto:info@techhomeservices.cat" class="c-card reveal"><div class="c-icon">✉️</div><div class="c-label">Correu electrònic</div><div class="c-val">info@techhomeservices.cat</div><div class="c-sub">Per a consultes i pressupostos</div></a>
+      <a href="#" class="c-card reveal reveal-delay-1"><div class="c-icon">📍</div><div class="c-label">Zona de cobertura</div><div class="c-val">Barcelona i rodalies</div><div class="c-sub">Desplaçament inclòs al preu</div></a>
     </div>
-    <div class="contact-methods">
-      <a href="tel:+34600000000" class="contact-card reveal">
-        <div class="contact-card-icon">📞</div>
-        <h4>Telèfon</h4>
-        <p>+34 600 000 000</p>
-      </a>
-      <a href="https://wa.me/34600000000" class="contact-card reveal">
-        <div class="contact-card-icon">💬</div>
-        <h4>WhatsApp</h4>
-        <p>Escriu-nos ara</p>
-      </a>
-      <a href="mailto:info@techhomeservices.cat" class="contact-card reveal">
-        <div class="contact-card-icon">✉️</div>
-        <h4>Correu</h4>
-        <p>info@techhomeservices.cat</p>
-      </a>
-      <a href="https://maps.google.com" class="contact-card reveal">
-        <div class="contact-card-icon">📍</div>
-        <h4>Zona</h4>
-        <p>Barcelona i rodalies</p>
-      </a>
+    <div class="contact-cta-wrap reveal">
+      <a href="tel:+34600000000" class="btn-glow">Truca ara →</a>
+      <a href="https://wa.me/34600000000" class="btn-outline">WhatsApp</a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Tech<span>Home</span> Services</div>
-  <p>© 2025 TechHome Services, S.L. · La tecnologia, a casa teva.</p>
-  <p>Yasser Belouafi Bakhat · 2n SMX B · Institut Puig Castellar</p>
+  <div class="footer-left">
+    <div class="footer-brand">Tech<em>Home</em> Services, S.L.</div>
+    <p>La tecnologia, a casa teva · Barcelona · 2025</p>
+  </div>
+  <div class="footer-right">
+    <p>Yasser Belouafi Bakhat</p>
+    <p>2n SMX B · Institut Puig Castellar</p>
+  </div>
 </footer>
 
 <script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';cursor.style.background='var(--cyan)';ring.style.width='54px';ring.style.height='54px';ring.style.opacity='.4'});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';cursor.style.background='var(--blue)';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='1'});
+});
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').style.background=window.scrollY>50?'rgba(5,8,18,0.97)':'rgba(10,15,30,0.8)';
+});
 </script>
 </body>
 </html>
